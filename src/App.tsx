@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { MsalProvider } from '@azure/msal-react';
+import Dashboard from './components/Dashboard/Dashboard';
+import React from 'react';
+import { MyContext } from './MyContext';
 
-function App() {
+function App(props: any) {
+  const { msalInstance } = props;
+
+
+  const contextSample = {
+    name: 'UserName',
+    value: 'Role',
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MsalProvider instance={msalInstance}>
+      <MyContext.Provider value={contextSample}>
+        <Dashboard />
+      </MyContext.Provider>
+    </MsalProvider>
   );
 }
 
